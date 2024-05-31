@@ -1,0 +1,7 @@
+{
+  "name": "newparexkonso",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
