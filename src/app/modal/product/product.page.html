@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>{{product.code}} {{product.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <section id="produit-description">
+    <div class="produit-img"><img [src]="product.img"></div>
+    <div class="produit-desc" *ngIf="product.attribut1"><u>Base chimique</u> : {{product.attribut1}}</div>
+    <div class="produit-desc" [innerHTML]="product.desc"></div>
+  </section>
+  <section id="produit-info">
+      <div class="produit-info-plus">
+          <h3>Les plus produits</h3>
+          <ul no-padding>
+              <li *ngFor="let p of product.plus" [innerHTML]="p"></li>
+          </ul>
+          </div>
+  </section>
+  <div class="div-buttons" (click)="openLink(product)">
+      <ion-button color="danger" size="small">
+        <ion-icon slot="start" name="download"></ion-icon>FICHE TECHNIQUE (PDF)
+      </ion-button>
+  </div>
+</ion-content>

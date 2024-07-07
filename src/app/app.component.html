@@ -1,27 +1,27 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar color="lightgrey">
+          <ion-title class="fontIntroBook">Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi&#64;ionicframework.com</ion-note>
-
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-
         <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
+          <ion-item *ngFor="let d of menuService.domains ; let i = index" color="lightgrey" (click)="goToCalcDomain(i)" text-uppercase>
+            <ion-icon slot="start" [name]="d.icon" [style.color]="d.color"></ion-icon>
+            <h3>{{d.name}}</h3>
+            <!-- <ion-icon name="star" item-end></ion-icon> -->
           </ion-item>
-        </ion-list>
+          <ion-item color="lightgrey" (click)="goToHisto()">
+            <ion-icon slot="start" name="bookmark" color="secondary"></ion-icon>
+            <h3>MES CALCULS</h3>
+          </ion-item>
+          <ion-item *ngFor="let p of user.getUserData()?.favoriteList ; let i = index" color="lightgrey" (click)="goToCalcProduct(p)" text-uppercase>
+            <ion-icon slot="start" [name]="p.icon" [style.color]="p.color" ></ion-icon>
+            <h3>{{p.name}}</h3>
+          </ion-item>
+          </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

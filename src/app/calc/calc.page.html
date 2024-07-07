@@ -1,0 +1,115 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button></ion-menu-button>
+    <ion-title class="text-center"><img class="logo" src="assets/img/PXL.png"></ion-title>
+    <ion-button>
+      <ion-icon name="home" slot="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="fs3 p-10 text-center">{{user.getCurrentDomain().name}}</div>
+  <ion-button expand="full"  text-uppercase color="primary" (click)="openSearchModal()">{{user.getCurrentProduct()?.label||'Choisir un produit'}}</ion-button>
+  <div *ngIf="user.getCurrentProduct()" class="text-center">Base chimique : {{user.getCurrentProduct()?.attribut1}}</div>
+  <div *ngIf="user.getCurrentProduct()">
+    <div class="pa5" class="div-buttons">
+      <ion-button size="small" color="danger" (click)="openModal()">
+        <ion-icon slot="start" name="book-outline"></ion-icon>
+        FICHE PRODUIT
+      </ion-button>
+      <ion-button *ngIf="!form.fav" (click)="form.fav=!form.fav;addToFavorite(user.getCurrentProduct())" color="secondary" size="small" fill="outline">
+        Ajouter au menu 
+        <ion-icon slot="end" name="star"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="form.fav" (click)="form.fav=!form.fav;removeFromFavorite(user.getCurrentProduct())" color="danger" size="small" fill="outline">
+        Retirer du menu 
+        <ion-icon slot="end" name="star-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <hr no-margin style="border-width: 1px">
+    <div *ngIf="!form.showResult" class="pb40">
+      <div class="fs3 p-10 text-center">Paramètres de calcul</div>
+      <ion-list>
+        <ion-item-group *ngFor="let m of form.materials">
+          <ion-item-divider class="primary-dark light ion-text-uppercase">{{m.name}}</ion-item-divider>
+          <div *ngFor="let p of m.parameters">
+            <ion-item color="primary" *ngIf="p.type==='list'">
+              <ion-label>{{p.label}}</ion-label>
+              <ion-select [(ngModel)]="p.choice" slot="end" class="ion-text-right">
+              <ion-select-option *ngFor="let v of p.values" [value]="v">{{v}} <div *ngIf="v!=='Autre'">{{p.unit}}</div></ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item color="primary" *ngIf="p.type==='number'">
+              <ion-label>{{p.label}}</ion-label>
+              <ion-input [(ngModel)]="p.choice" slot="end" class="ion-text-right" [type]="p.type" [placeholder]="p.placeholder"></ion-input>
+            </ion-item>
+            <div *ngIf="p.choice==='Autre'">
+              <div *ngFor="let o of p.otherParameters">
+                <ion-item color="primary" *ngIf="o.type==='number'">
+                  <ion-label>{{o.label}}</ion-label>
+                  <ion-input [(ngModel)]="o.choice" class="ion-text-right" [type]="o.type" [placeholder]="o.placeholder"></ion-input>
+                </ion-item>
+                <ion-item class="ion-text-center" color="primary" *ngIf="o.type==='slider'">
+                  <ion-icon name="remove-circle" slot="start" (click)="o.choice=o.choice-1"></ion-icon>
+                  <div class="text-full">{{o.choice}} {{o.unit}}</div>
+                  <ion-icon name="add-circle" slot="end" (click)="o.choice=o.choice+1"></ion-icon>
+                </ion-item>
+              </div>
+            </div>
+          </div>
+        </ion-item-group>
+      </ion-list>
+    </div>
+    <div *ngIf="form.showResult" class="pb40">
+    <div class="fs3 p-10 text-center">Résultats du calcul </div>
+        <ion-list no-margin>
+        <ion-item-group *ngFor="let c of form.calc">
+          <ion-item-divider class="primary-dark light">{{c.name}}</ion-item-divider>
+          <ion-item color="primary" *ngFor="let f of c.formulas">
+            <ion-label #f.label_placement>{{f.label}} {{f.result}} {{f.unit}}</ion-label>
+          </ion-item>
+        </ion-item-group>
+        <ion-item-group>
+          <ion-item-divider class="primary-dark light" >Achats recommandés</ion-item-divider>
+          <div *ngFor="let c of form.calc[0].cond">
+          <ion-item  color="primary" *ngIf="c.nb!==0">
+            <ion-icon [name]="c.icon" slot="start"></ion-icon>
+            {{c.label}}
+            <ion-text slot="end">
+              x {{c.nb||0}}
+            </ion-text>
+          </ion-item>
+          </div>
+        </ion-item-group>
+        <ion-item-group>
+          <ion-item-divider class="primary-dark light" >Par conditionnement</ion-item-divider>
+          <div *ngFor="let c of form.calc[0].byCond">
+            <ion-item  color="primary" *ngIf="c.nb!==0">
+              <ion-icon [name]="c.icon" slot="start"></ion-icon>
+              {{c.label}}
+              <ion-text slot="end">
+                x {{c.nb||0}}
+              </ion-text>
+            </ion-item>
+          </div>
+        </ion-item-group>
+      </ion-list>
+      <div class="ion-text-center">
+        <ion-button color="secondary" size="small" color="secondary" icon-left (click)="saveResult();form.saved=true" *ngIf="!form.saved">
+          <ion-icon name="bookmark"></ion-icon>
+          Sauvegarder
+        </ion-button>
+        <div>
+        <h2><ion-icon *ngIf="form.saved" name="checkmark-circle" color="primary" class="animated fadeIn"></ion-icon></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="user.getCurrentProduct()">
+  <ion-button  expand="full" [color]="form.showResult?'danger':'secondary'" (click)="calculResult(user.getCurrentDomain().id)">{{buttonBottom}}</ion-button>
+</ion-footer>

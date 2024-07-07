@@ -35,3 +35,39 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+.logo {
+    max-height: 35px;
+}
+
+.div-buttons{
+    text-align: center;
+}
+
+.fs3{
+	font-size: 1.3rem;	
+}
+
+.p-10{
+    padding: 10px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.primary-dark{
+	background-color: #446176;
+}
+
+.light{
+	color: white;
+}
+
+.text-full{
+    width: 100% !important;
+}
+
+ion-note{
+    font-size: 1em;
+}

@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img class="logo" src="../../assets/img/PXL.png">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="lightgrey-bg" text-center>
+  <div class="textWait">
+    <span><ion-spinner></ion-spinner><br>Mise à jour des données</span>
+  </div>
+  <div class="btnBas"><button ion-button round outline (click)="goToHome()">Annuler</button></div>
+</ion-content>
+  

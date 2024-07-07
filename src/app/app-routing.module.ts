@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoadPage } from './load/load.page';
+import { HomePage } from './home/home.page';
+import { CalcPage } from './calc/calc.page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    component: LoadPage,
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'home',
+    component: HomePage,
+    pathMatch: 'full'
+  },
+  {
+    path: 'calc',
+    component: CalcPage,
+    pathMatch: 'full'
   }
 ];
 

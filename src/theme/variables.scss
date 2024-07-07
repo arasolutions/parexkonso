@@ -1,2 +1,33 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+@use "sass:map";
+
+$colors: (
+  primary:    #4F7189,//vert parex : 008B6C
+  secondary:  #008B6C,//rouge parex : E32122
+  danger:     #E32122,
+  light:      #f4f4f4,//f4f4f4
+  lightgrey : #d3d3d3,
+  dark:       #222
+);
+
+:root {
+    --primary: #4F7189;
+    --secondary: #008B6C;
+    --danger: #E32122;
+
+    --ion-color-secondary: #008B6C;
+    --ion-color-secondary-rgb: 0, 139, 108;
+    --ion-color-secondary-contrast: #fff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #006F56;
+    --ion-color-secondary-tint: #19967A;
+
+    --ion-color-primary: #607F94;
+    --ion-color-primary-rgb: 96, 127, 148;
+    --ion-color-primary-contrast: #fff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #6F8B9E;
+    --ion-color-primary-tint: #4F7189;
+}

@@ -1,0 +1,35 @@
+@use "sass:map";
+
+/* FICHE PRODUIT */
+#produit-description, #produit-info, #produit-fiche{
+    width: 90%;
+    margin: auto;
+    padding-top: 12px;
+}
+
+.produit-img{
+    text-align: center;
+    padding: 5px 0;
+}
+
+.produit-img > img{
+    max-height: 100px;
+}
+
+.produit-info-plus h3{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: solid 3px var(--danger);
+
+    padding-bottom: 5px;
+}
+
+.produit-info-plus ul{
+    padding-bottom: 10px;
+    list-style-type: none;
+}
+
+.produit-info-plus li:before, .produit-info-dev li:before{
+    content: '+ ';
+}
