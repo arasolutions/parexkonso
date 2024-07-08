@@ -13,7 +13,6 @@ export class SearchPage implements OnInit {
   products: any;
 
   constructor(public user: UserService, public modalCtrl: ModalController ) {
-    this.initializeItems();
   }
 
   ionViewWillEnter(){

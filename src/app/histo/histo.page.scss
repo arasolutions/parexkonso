@@ -1,0 +1,97 @@
+.containerMain {
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    padding: 1vw;
+}
+
+.tiles {
+    color: lightgrey;
+    padding: 0px 16px;
+    height: 47vw;
+    width: 47vw;
+    margin: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    > div:nth-child(1) {
+        font-size: 5rem;
+    }
+    > div:nth-child(2) {
+        font-size: 2rem;
+    }
+}
+
+.tiles2 {
+    color: lightgrey;
+    padding: 0px 16px;
+    height: 47vw;
+    width: 47vw;
+    margin: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    > div:nth-child(1) {
+        font-size: 3.5rem;
+    }
+    > div:nth-child(2) {
+        font-size: 1.7rem;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .tiles {
+        height: 30.6vw;
+        width: 30.6vw;
+        margin: 1vw;
+        > div:nth-child(1) {
+            font-size: 6.5rem;
+        }
+        > div:nth-child(2) {
+            font-size: 2.5rem;
+        }
+    }
+    .tiles2 {
+        height: 30.6vw;
+        width: 30.6vw;
+        margin: 1vw;
+        > div:nth-child(1) {
+            font-size: 5.5rem;
+        }
+        > div:nth-child(2) {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+.logo {
+    max-height: 35px;
+}
+
+ion-item::part(native){
+    background-color: transparent !important;
+}
+
+ion-item ion-label h2, ion-item ion-label .total{
+    color:white !important;
+    font-size: 1.2rem;
+}
+
+ion-item ion-label .total{
+    padding-top: 1rem;
+}
+
+ion-item ion-label .total:first-child{
+    padding-top: .8rem;
+}
+    
+ion-item ion-label p, ion-item ion-label div{
+    color:rgb(255, 255, 255, 0.5);
+}
+
+/*sm 	540px 	Set grid width to 540px when (min-width: 576px)
+md 	720px 	Set grid width to 720px when (min-width: 768px)
+lg 	960px 	Set grid width to 960px when (min-width: 992px)
+xl 	1140px 	Set grid width to 1140px when (min-width: 1200px)*/

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalcPage } from '../calc/calc.page';
 import { UserService } from '../user.service';
 import { NavController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomePage implements OnInit {
   restData: any;
   favoriteList: any;
 
-  constructor(public user: UserService, public navCtrl: NavController) {
+  constructor(public user: UserService, public navCtrl: NavController, public router: Router) {
     this.calcPage = CalcPage;
     this.loaded = false; 
   }
@@ -23,7 +24,6 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log('cc2');
     this.restData = this.user.getDatabase();
     this.favoriteList = this.user.getUserData().favoriteList || [];
     setTimeout(() => {
@@ -35,11 +35,17 @@ export class HomePage implements OnInit {
   public goToCalcDomain(idxDomain: any) {
     console.log("goToCalcDomain > "+idxDomain);
     this.user.setCurrentDomainFromId(idxDomain);
-    this.navCtrl.navigateForward('calc');
+    this.navCtrl.navigateRoot('calc');
   }
   
   public goToCalcProduct(product: any) {
-    this.navCtrl.navigateForward('');
+    console.log("goToCalcDomain > "+product.id);
+    this.user.setCurrentDomainFromId(product.domainId);
+    this.user.setCurrentProduct(product);
+		this.navCtrl.navigateRoot('calc');
   }
 
+  public returnToHome(){
+    this.navCtrl.navigateRoot('home');
+  }
 }

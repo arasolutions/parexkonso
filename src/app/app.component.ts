@@ -11,6 +11,7 @@ import { Keyboard } from '@capacitor/keyboard';
 import { Storage } from '@ionic/storage-angular';
 import { Capacitor, Plugins } from '@capacitor/core';
 import { MenuService } from './menu.service';
+import { HistoPage } from './histo/histo.page';
 
 @Component({
   selector: 'app-root',
@@ -66,6 +67,9 @@ export class AppComponent {
     this.navCtrl.navigateRoot('calc');
   }
   goToHisto() {
-    //this.nav.push(HistoPage);
+    this.navCtrl.navigateForward('histo');
+    this.menuCtrl.toggle();
   }
+
+
 }

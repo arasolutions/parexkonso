@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NavController, ModalController, AlertController, NavParams } from '@ionic/angular';
 import { UserService } from '../user.service';
 import { SearchPage } from '../modal/search/search.page';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPage } from '../modal/product/product.page';
 
 @Component({
@@ -20,7 +20,7 @@ export class CalcPage implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   buttonBottom: string;
 
-  constructor(public alertCtrl: AlertController, public user: UserService, public navParams: NavParams, public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public alertCtrl: AlertController, public user: UserService, public navParams: NavParams, public navCtrl: NavController, public modalCtrl: ModalController, public router:Router) {
     this.form = {};
     this.form.showResult = false;
     this.buttonBottom = 'CALCULER';
@@ -32,7 +32,14 @@ export class CalcPage implements OnInit {
 
   ngOnInit() {
     console.log("CalcPage ngOnInit > ");
-    console.log(this.user.getCurrentDomain());
+	this.currentDomain = this.user.getCurrentDomain();
+	if(this.user.getCurrentProduct!=null){
+		// On vient des favoris
+		console.log('On vient des favoris');
+		this.currentProduct = this.user.getCurrentProduct();
+        this.initProduct(this.currentProduct);
+        this.initForm(this.currentProduct);
+	}
   }
 
   async openSearchModal() {
@@ -40,11 +47,12 @@ export class CalcPage implements OnInit {
       component: SearchPage
     });
 
-    searchModal.onDidDismiss().then((data:any) => {
-      console.log(data);
-      if (data) {
-        this.initProduct(data);
-        this.initForm(data);
+    searchModal.onDidDismiss().then((product:any) => {
+      console.log(product);
+      if (product) {
+		this.user.setCurrentProduct(product.data);
+        this.initProduct(product.data);
+        this.initForm(product.data);
       }
     });
     
@@ -81,9 +89,9 @@ export class CalcPage implements OnInit {
           var param = this.form.materials[i].parameters[j];
           if (param.type === 'plage') {
 			console.log(param.id);
-			console.log(p.data.plage);
-            if (p.data.plage && p.data.plage[param.id + '']) {
-              param.values = p.data.plage[param.id + ''];
+			console.log(p.plage);
+            if (p.plage && p.plage[param.id + '']) {
+              param.values = p.plage[param.id + ''];
               param.type = 'list';
             } else {
               console.log('Pas de plage définie');
@@ -101,14 +109,8 @@ export class CalcPage implements OnInit {
 
   initProduct(product: any) {
     console.log('CalcPage > initProduct');
-    console.log(product.data);
     this.buttonBottom = 'CALCULER';
-    this.user.setCurrentProduct(product.data);
-    this.currentProduct=product.data;
-    //Si domainId définit c'est qu'on est passé par un favori, on doit alors déterminer le domaine
-    if (this.currentProduct.domainId) {
-      this.user.setCurrentDomainFromId(this.currentProduct.domainId);
-    }
+    this.currentProduct=this.user.getCurrentProduct();
   }
 
   calculResult(domainId: any) {
@@ -287,30 +289,18 @@ export class CalcPage implements OnInit {
 		this.saved = true;
 		let save: any;
 		save = {};
-		save.product = this.currentProduct;
+		save.product = this.currentProduct; 
 		save.product.color = this.user.getCurrentDomain().color;
 		save.product.domainId = this.user.getCurrentDomain().id;
 		save.form = JSON.parse(JSON.stringify(this.form));;
 		this.user.saveResult(save);
+		console.log(this.user.getUserData());
 	}
   
 	removeFromFavorite(p: any) {
 		this.user.removeFromFavorite(p);
 	}
 
-  /*changeParam(material: any, event: any){
-	material.choice = event.detail.value;
-  }
-
-  changeParamValue(parameter: any, event: any){
-    console.log('CalcPage > changeParamValue');
-	parameter.choice = event.detail.value;
-  }*/
-
-  /*changeOtherParamValue(parameter: any, event: any){
-    console.log('CalcPage > changeOtherParamValue');
-	parameter.choice = event.detail.value;
-  }*/
 
   addToFavorite(p: any) {
 		//On injecte au produit la couleur du domaine
@@ -320,4 +310,7 @@ export class CalcPage implements OnInit {
 		this.user.addToFavorite(p);
 	}
 
+	public returnToHome(){
+		this.navCtrl.navigateRoot('home');
+	  }
 }

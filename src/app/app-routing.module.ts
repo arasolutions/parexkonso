@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'calc',
     component: CalcPage,
     pathMatch: 'full'
+  },
+  {
+    path: 'histo',
+    loadChildren: () => import('./histo/histo.module').then( m => m.HistoPageModule)
   }
 ];
 

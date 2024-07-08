@@ -2,8 +2,8 @@
   <ion-toolbar>
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
-    <ion-title class="text-center"><img class="logo" src="assets/img/PXL.png"></ion-title>
-    <ion-button>
+    <ion-title class="text-center"><img class="logo" src="assets/img/PXL.png" (click)="returnToHome()"></ion-title>
+    <ion-button (click)="returnToHome()">
       <ion-icon name="home" slot="end"></ion-icon>
     </ion-button>
   </ion-buttons>

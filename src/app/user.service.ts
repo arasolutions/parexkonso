@@ -60,8 +60,12 @@ export class UserService {
     console.log("UserService setCurrentDomainFromId > " + id);
 	console.log(this.userData.database.domains);
 		
-	if (this.userData.database.domains[id] !== undefined) {
-		this.setCurrentDomain(this.userData.database.domains[id]);
+	if (this.userData.database.domains !== undefined) {
+		this.userData.database.domains.forEach((domain:any) => {
+			if(domain.id === id){
+				this.setCurrentDomain(domain);
+			}
+		});
 		this.currentProduct = null;
 	}
 }
@@ -72,9 +76,14 @@ getCurrentProduct() {
 
 setCurrentProduct(product: any) {
 	console.log('UserService > setCurrentProduct');
-	this.currentProduct = product;
-    this.currentProduct.label = this.currentProduct.code + ' ' + this.currentProduct.name;
+	console.log(this.userData.database.domains);
+	if(this.currentDomain == null){
+		this.currentDomain=this.setCurrentDomainFromId(product.domainId);
+	}
+	this.currentProduct= product;
+	this.currentProduct.label = this.currentProduct.code + ' ' + this.currentProduct.name;
 	console.log(this.currentProduct);
+	console.log(this.currentDomain);
 }
 
   isFavorite(product: any) {
@@ -167,6 +176,11 @@ setCurrentProduct(product: any) {
 			this.userData.resultList = [];
 		}
 		this.userData.resultList.unshift(data);
+		this.saveUserData();
+	}
+	
+	deleteResult(idx: number) {
+		this.userData.resultList.splice(idx, 1);
 		this.saveUserData();
 	}
 

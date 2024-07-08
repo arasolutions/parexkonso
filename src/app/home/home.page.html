@@ -3,9 +3,9 @@
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
       <ion-title class="text-center">
-        <img class="logo" src="assets/img/PXL.png">
+        <img class="logo" src="assets/img/PXL.png" (click)="returnToHome()">
       </ion-title>
-      <ion-button>
+      <ion-button (click)="returnToHome()">
         <ion-icon name="home" slot="end"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -14,7 +14,7 @@
 
 <ion-content [fullscreen]="true">
   <div class="containerMain" *ngIf="loaded">
-  <div tappable *ngFor="let d of restData.domains ; let i = index" class="animated flipInY del200 tiles" [style.background-color]="d.color" (click)="goToCalcDomain(i)">
+  <div tappable *ngFor="let d of restData.domains ; let i = index" class="animated flipInY del200 tiles" [style.background-color]="d.color" (click)="goToCalcDomain(d.id)">
     <div><ion-icon [name]="d.icon"></ion-icon></div>
     <div>{{d.name}}</div>
   </div>

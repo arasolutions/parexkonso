@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'newparexkonso',
+  appName: 'ParexKonso V2',
   webDir: 'www'
 };
 

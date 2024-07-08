@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button></ion-menu-button>
+      <ion-title class="text-center">
+        <img class="logo" src="assets/img/PXL.png" (click)="returnToHome()">
+      </ion-title>
+      <ion-button (click)="returnToHome()">
+        <ion-icon name="home" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="lightgrey-bg fontIntroBook" [fullscreen]="true">
+  <div class="textVide" *ngIf="!resultList || resultList.length===0">
+  <ion-icon name="alert" color="primary"></ion-icon><br>
+    <h5>Pas de résultats sauvegardés</h5>
+  </div>
+  <ion-list class="light" *ngIf="loaded">
+    <ion-item-sliding *ngFor="let res of resultList ; let i = index" >
+      <ion-item (click)="choice=i" [style.background-color]="res.product.color">
+        <ion-label>
+          <ion-text>
+            <h2>{{res.product.code}} {{res.product.name}}</h2>
+            <p *ngFor="let d of res.form.data">{{d.label}} : {{d.value}} {{d.unit}}</p>
+        </ion-text>
+        <ion-text *ngIf="choice===i" class="animated fadeInLeft" slot="end">
+          <p class="total">Total : {{res.form.calc[0].formulas[0].result}} {{res.form.calc[0].formulas[0].unit}}</p>
+            <div *ngIf="res.form.calc[0].cond" class="ion-text-right total">
+              {{ res.form.calc[0].name }}
+              <div *ngFor="let c of res.form.calc[0].cond">
+                <div *ngIf="c.nb!==0">
+                <ion-icon slot="start" [name]="c.icon"></ion-icon>
+                {{c.label}} x {{c.nb}}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="res.form.calc[0].byCond" class="ion-text-right total">
+              Par conditionnement
+              <div *ngFor="let c of res.form.calc[0].byCond">
+                <div *ngIf="c.nb!==0">
+                <ion-icon slot="start" [name]="c.icon"></ion-icon>
+                {{c.label}} x {{c.nb}}
+                </div>
+              </div>
+            </div>
+            
+          </ion-text>
+      </ion-label>
+    </ion-item> 
+    <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteResult(i)">
+          <ion-icon name="trash"></ion-icon>
+          Suppr.
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+  
+  
+  </ion-content>
