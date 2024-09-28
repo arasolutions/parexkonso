@@ -1,20 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-title class="text-center">
-        <img class="logo" src="assets/img/PXL.png" (click)="returnToHome()">
-      </ion-title>
+    </ion-buttons>
+    <ion-title class="text-center">
+      <img class="logo" src="assets/img/PXL.png" (click)="returnToHome()">
+    </ion-title>
+    <ion-buttons slot="end">
       <ion-button (click)="returnToHome()">
-        <ion-icon name="home" slot="end"></ion-icon>
+        <ion-icon name="home"></ion-icon>
       </ion-button>
     </ion-buttons>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="lightgrey-bg fontIntroBook" [fullscreen]="true">
   <div class="textVide" *ngIf="!resultList || resultList.length===0">
-  <ion-icon name="alert" color="primary"></ion-icon><br>
+  <ion-icon name="alert" color="primary"></ion-icon>
     <h5>Pas de résultats sauvegardés</h5>
   </div>
   <ion-list class="light" *ngIf="loaded">

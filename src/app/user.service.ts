@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DownloadFileResult, Directory, Filesystem } from '@capacitor/filesystem';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 
@@ -14,7 +15,7 @@ export class UserService {
 
   constructor(public storage: Storage, public alertCtrl: AlertController) {
 		this.init();
-    storage.get(DBNAME).then((val: any) => {
+    	storage.get(DBNAME).then((val: any) => {
 			this.userData = val || {};
 			if (this.userData.favoriteList) {
 				//this.events.publish('menu:updateProducts', this.userData.favoriteList);
@@ -110,7 +111,6 @@ setCurrentProduct(product: any) {
 		var localProd: any;
 		localProd = {};
 		localProd.founded = false;
-		/*const fileTransfer: FileTransferObject = this.transfer.create();
 		for (let i = 0; i < this.userData.localFt.length; i++) {
 			if (this.userData.localFt[i].id === product.id) {
 				localProd = this.userData.localFt[i];
@@ -118,31 +118,41 @@ setCurrentProduct(product: any) {
 				break;
 			}
 		}
+		console.log('openProduct < before File');
 		// si trouvé et - de 30j (2592000s)
 		if (localProd.founded && (Math.round(Date.now() / 1000) - localProd.entryDate) < 2592000) {
+			console.log(localProd.entry);
 			//on affiche
-			this.fileOpener.open(localProd.entry, 'application/pdf')
+			Filesystem.readFile(localProd.entry)
 				.then(() => console.log('File is opened'))
 				.catch(e => console.log('Error openening file', e));
 		} else {
+			console.log('openProduct < on télécharge');
+			console.log(product.ft);
+			console.log(Directory.Documents);
 			//on télécharge
-			fileTransfer.download(product.ft, this.file.dataDirectory + 'fiche_' + product.id + '.pdf').then((entry) => {
-				product.entry = entry.toURL();
+			Filesystem.downloadFile({
+				url: product.ft,
+				directory: Directory.Documents,
+				path:'parexkonso_local_ft/'+'fiche_' + product.id + '.pdf',
+			}).then((entry: DownloadFileResult) => {
+				product.entry = entry.path;
 				product.entryDate = Math.round(Date.now() / 1000);
 				this.userData.localFt.unshift(product);
 				this.userData.localFt = this.userData.localFt.slice(0, 7);
 				this.saveUserData();
-				this.fileOpener.open(product.entry, 'application/pdf')
-					.then(() => console.log('File is opened'))
+				Filesystem.readFile({
+					path: product.entry
+				}).then(() => console.log('File is opened'))
 					.catch(e => console.log('Error openening file', e));
 			}, (error) => {
 				// si erreur (pas de réseau?) on essaye quand meme d'afficher (meme si > 30j)
-				this.fileOpener.open(localProd.entry, 'application/pdf')
+				Filesystem.readFile(localProd.entry)
 					.then(() => console.log('File is opened'))
 					.catch(e => console.log('Error openening file', e));
 			});
 
-		}*/
+		}
 	}
 
 	addToFavorite(product: any) {
@@ -180,8 +190,11 @@ setCurrentProduct(product: any) {
 	}
 	
 	deleteResult(idx: number) {
+		console.log('UserService > deleteResult (' + idx + ')');
 		this.userData.resultList.splice(idx, 1);
+		console.log('splice ok');
 		this.saveUserData();
+		console.log('save ok');
 	}
 
 }
