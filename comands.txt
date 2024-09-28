@@ -1,0 +1,19 @@
+
+Capacitor
+npm i @capacitor/core
+npm i -D @capacitor/cli
+npm i @capacitor/android @capacitor/ios
+npx cap add android
+ionic cap copy
+npx cap sync
+npx cap open android
+npx cap add ios
+npx cap open ios
+ionic capacitor run android
+
+Splash
+npm install @capacitor/assets --save-dev
+npx capacitor-assets generate --android
+npx capacitor-assets generate --ios
+
+API Level Android : https://apilevels.com/
