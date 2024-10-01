@@ -36,8 +36,25 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-#background-content{
-    background: black;
+
+@font-face{
+	font-family:'intro_regular';
+	src:url(./assets/fonts/intro-regular-webfont.ttf);
+	font-weight:normal;
+	font-style:normal;
+}
+
+@font-face{
+	font-family:'intro_book';
+	src:url(./assets/fonts/intro-book-webfont.ttf);
+	font-weight:normal;
+	font-style:normal;
+}
+
+:root[mode=ios] .muli,
+:root[mode=md] .muli{
+  --ion-font-family:  'intro_book'!important;
+  font-family:  'intro_book' !important;
 }
 
 .logo {

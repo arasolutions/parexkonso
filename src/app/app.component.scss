@@ -1,3 +1,7 @@
+
+
+
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
@@ -555,20 +559,6 @@ ion-item.selected {
 
 .toolbar-title{
 	padding-top:5px;
-}
-
-@font-face{
-	font-family:'intro_regular';
-	src:url(../assets/fonts/intro-regular-webfont.eot);
-	font-weight:normal;
-	font-style:normal;
-}
-
-@font-face{
-	font-family:'intro_book';
-	src:url(../assets/fonts/intro-book-webfont.eot);
-	font-weight:normal;
-	font-style:normal;
 }
 
 .fontIntroBook {

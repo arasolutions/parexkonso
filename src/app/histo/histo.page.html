@@ -16,8 +16,7 @@
 
 <ion-content class="lightgrey-bg fontIntroBook" [fullscreen]="true">
   <div class="textVide" *ngIf="!resultList || resultList.length===0">
-  <ion-icon name="alert" color="primary"></ion-icon>
-    <h5>Pas de résultats sauvegardés</h5>
+    <h5><ion-icon name="alert-circle"></ion-icon>&nbsp;Pas de résultat sauvegardé</h5>
   </div>
   <ion-list class="light" *ngIf="loaded">
     <ion-item-sliding *ngFor="let res of resultList ; let i = index" >
@@ -32,19 +31,19 @@
             <div *ngIf="res.form.calc[0].cond" class="ion-text-right total">
               {{ res.form.calc[0].name }}
               <div *ngFor="let c of res.form.calc[0].cond">
-                <div *ngIf="c.nb!==0">
+                <p *ngIf="c.nb!==0">
                 <ion-icon slot="start" [name]="c.icon"></ion-icon>
-                {{c.label}} x {{c.nb}}
-                </div>
+                {{c.label}} x{{c.nb}}
+                </p>
               </div>
             </div>
             <div *ngIf="res.form.calc[0].byCond" class="ion-text-right total">
               Par conditionnement
               <div *ngFor="let c of res.form.calc[0].byCond">
-                <div *ngIf="c.nb!==0">
+                <p *ngIf="c.nb!==0">
                 <ion-icon slot="start" [name]="c.icon"></ion-icon>
-                {{c.label}} x {{c.nb}}
-                </div>
+                {{c.label}} x{{c.nb}}
+                </p>
               </div>
             </div>
             

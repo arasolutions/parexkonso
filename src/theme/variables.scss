@@ -3,6 +3,7 @@
 
 @use "sass:map";
 
+
 $colors: (
   primary:    #4F7189,//vert parex : 008B6C
   secondary:  #008B6C,//rouge parex : E32122
@@ -34,4 +35,6 @@ $colors: (
     --ion-background-color: #ddd;
     --ion-toolbar-background: #ddd;
     --ion-toolbar-color: #222;
+
+    --ion-font-family: 'intro_book';
 }

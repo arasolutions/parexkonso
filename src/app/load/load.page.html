@@ -1,18 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
+    <ion-title class="text-center">
       <img class="logo" src="../../assets/img/PXL.png">
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="lightgrey-bg" text-center>
-  <div class="textWait">
-    <span><ion-spinner></ion-spinner><br>Mise à jour des données</span>
+<ion-content class="lightgrey-bg">
+  <div class="textWait" slot="fixed" class="text-center">
+    <span><ion-spinner name="circular"></ion-spinner><br>Mise à jour des données</span>
   </div>
-  <div class="btnBas"><button ion-button round outline (click)="goToHome()">Annuler</button></div>
 </ion-content>
   
+<ion-footer>
+  <div class="btnBas">
+    <ion-button shape="round" fill="outline" (click)="goToHome()">Annuler</ion-button></div>
+  </ion-footer>
+
+  <style scoped>
+    div[slot='fixed'] {
+    width: 100%;
+      top: 50%;
+      text-align: center;
+    }
+  </style>

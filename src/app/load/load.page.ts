@@ -4,6 +4,8 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { RestService } from '../rest.service';
 import { MenuService } from '../menu.service';
+import { SplashScreen } from '@capacitor/splash-screen';
+
 
 @Component({
   selector: 'app-load',
@@ -39,6 +41,9 @@ export class LoadPage implements OnInit {
 
   ionViewWillEnter() {
     console.log('LoadPage --> ionViewDidEnter');
+    SplashScreen.show({
+      autoHide: false,
+    });
     this.rest.getRemoteVersion()
       .subscribe({
         next: (data) => {
