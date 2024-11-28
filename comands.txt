@@ -17,3 +17,12 @@ npx capacitor-assets generate --android
 npx capacitor-assets generate --ios
 
 API Level Android : https://apilevels.com/
+
+npm install @capacitor/filesystem
+
+If there was a previous installation of the Ionic CLI, it will need to be uninstalled due to a change in package name.
+npm uninstall -g ionic
+npm install -g @ionic/cli
+
+Mettre à jour capacitor :
+npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest @capacitor/ios@latest
