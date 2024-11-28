@@ -1,21 +1,21 @@
 <ion-header>
   <ion-toolbar color="primary">
       <ion-title>CHOIX DU PRODUIT</ion-title>
-      <ion-buttons end>
-          <button ion-button icon-only>
-              <ion-icon ios="md-close" md="md-close"></ion-icon>
-          </button>
+      <ion-buttons slot="end">
+          <ion-button slot="icon-only">
+              <ion-icon name="md-close"></ion-icon>
+          </ion-button>
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-searchbar (ionInput)="getItems($event)" placeholder="Produit ou référence"></ion-searchbar>
+<ion-searchbar [debounce]="100" (ionInput)="getItems($event)" placeholder="Produit ou référence"></ion-searchbar>
 <ion-list>
   <ion-item *ngFor="let p of products" (click)="selectProduct(p)">
-    <button color="primary" text-uppercase>
+    <ion-button fill="clear" size="normal" color="dark" text-uppercase>
       {{ p.code }} {{ p.name }}
-    </button>
+    </ion-button>
   </ion-item>
 </ion-list>
 </ion-content>

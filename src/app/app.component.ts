@@ -4,7 +4,6 @@ import { RestService } from './rest.service';
 import { Platform, NavController, isPlatform, MenuController } from '@ionic/angular';
 import { LoadPage } from './load/load.page';
 import { CalcPage } from './calc/calc.page';
-import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar } from '@capacitor/status-bar';
 import { Keyboard } from '@capacitor/keyboard';
 
@@ -26,28 +25,12 @@ export class AppComponent {
   domains: any;
   products: any;
   private _storage: Storage | null = null;
-  constructor(public user: UserService, public rest: RestService, public platform: Platform, private storage: Storage, public menuService: MenuService, public navCtrl: NavController, public menuCtrl: MenuController) {
-    this.initializeApp();
-
+  constructor(public user: UserService, public rest: RestService, public platform: Platform, private storage: Storage, public menuService: MenuService, public navCtrl: NavController, public menuCtrl: MenuController)
+  {
+    StatusBar.hide();
     let params = new URLSearchParams(window.location.search);
     let version = params.get('?version');
     rest.setVersion(version);
-  }
-
-  async initializeApp() {
-    this.platform.ready().then(() => {
-      SplashScreen.hide();
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      //StatusBar.styleDefault();
-      //Obligé de hide ici pour ios
-      if (this.isPlatformMobile()) {
-      SplashScreen.hide();
-        Keyboard.setAccessoryBarVisible({
-        isVisible:false
-      })
-    }
-    });
   }
 
   isPlatformMobile = (): boolean => (isPlatform('capacitor'));
@@ -65,7 +48,11 @@ export class AppComponent {
     this.menuCtrl.toggle();
   }
   goToCalcProduct(product: any) {
+    console.log("goToCalcProduct > ");
+    console.log(product);
+    this.user.setCurrentProduct(product);
     this.navCtrl.navigateRoot('calc');
+    this.menuCtrl.toggle();
   }
   goToHisto() {
     this.navCtrl.navigateForward('histo');

@@ -8,7 +8,7 @@
       </ion-header>
       <ion-content>
         <ion-list id="labels-list">
-          <ion-item *ngFor="let d of menuService.domains ; let i = index" color="lightgrey" (click)="goToCalcDomain(i)" text-uppercase>
+          <ion-item *ngFor="let d of menuService.domains ; let i = index" color="lightgrey" (click)="goToCalcDomain(d.id)" text-uppercase>
             <ion-icon slot="start" [name]="d.icon" [style.color]="d.color"></ion-icon>
             <h3>{{d.name}}</h3>
             <!-- <ion-icon name="star" item-end></ion-icon> -->

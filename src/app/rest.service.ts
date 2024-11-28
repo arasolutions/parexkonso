@@ -10,17 +10,26 @@ import { Storage } from '@ionic/storage';
 export class RestService {
 
   private version = "";
-	//private apiUrl = 'http://parexkonso-admin.ara-solutions.com/api/';
-	private apiUrl = 'http://www.parex-bo.test/api/';
+	private apiUrl = 'https://www.admin.parexkonso.com/api/';
+	//private apiUrl = 'http://www.parex-bo.test/api/';
 
 	constructor(public http: HttpClient) {
 		console.log('Hello RestProvider Provider');
 	}
 
+	getLocalData(): Observable<Object> {
+		return this.http.get("../assets/json/data.json");
+	}
+
 	getRemoteData(): Observable<Object> {
     console.log('RestService --> getRemoteData');
-		return this.http.get("../assets/json/data.json");
-		//return this.http.get(this.apiUrl + "get-datas/?version=" + this.version)
+		return this.http.get(this.apiUrl + "get-datas/?version=" + this.version, {
+			'headers':new HttpHeaders({ 
+			  "Access-Control-Allow-Origin": '*',
+			  "Access-Control-Allow-Methods":'GET, PUT, POST, DELETE, OPTIONS',
+			  "Access-Control-Allow-Headers": 'Content-Type',
+			})
+		  })
 	}
 
 	getRemoteVersion(): Observable<Object> {

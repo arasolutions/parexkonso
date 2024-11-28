@@ -27,6 +27,8 @@ export class SearchPage implements OnInit {
 
   getItems(ev: any) {
     // Reset items back to all of the items
+    console.log("getItems > ");
+    console.log(ev);
     this.initializeItems();
 
     // set val to the value of the searchbar
